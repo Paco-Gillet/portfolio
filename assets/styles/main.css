@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+    background: #fff;
+    color: #333;
+}
+
+header {
+    width: 100vw;
+    position: fixed;
+}
+
+h1 {
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+}

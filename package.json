@@ -18,8 +18,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "bootstrap": "^5.3.8",
         "element-plus": "^2.9.9",
         "symfony": "^0.0.1",
+        "vite": "^7.1.12",
         "vue": "3.4",
         "vue-loader": "^17.4.2",
         "vue-router": "4.2"
