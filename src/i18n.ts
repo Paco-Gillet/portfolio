@@ -4,10 +4,12 @@ const messages = {
     fr: {
         home: 'Accueil',
         projects: 'Projets',
+        welcome_message: 'Bienvenue sur mon portfolio !',
     },
     en: {
         home: 'Home',
         projects: 'Projects',
+        welcome_message: 'Welcome to my portfolio !',
     }
 }
 
