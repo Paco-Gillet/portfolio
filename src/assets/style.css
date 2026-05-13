@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 @import 'primeicons/primeicons.css';
@@ -10,42 +10,28 @@
     font-style: normal;
 }
 
+:root {
+    --my-default-transition-duration: .3s;
+}
+
 body {
     font-family: 'Roboto', Arial, sans-serif;
+    transition: var(--my-default-transition-duration) ease;
+    background-color: #f4fffd;
 }
 
-nav {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    font-size: 1.5rem;
-    font-family: 'Montserrat', sans-serif;
+footer {
+    background-color: #1a1a1c;
+    color: #6e7676;
 }
 
-nav > div {
-    position: relative;
-    padding: 0 1em;
-    font-weight: 300;
-    transition: .3s ease;
-}
+.dark-app {
+    body {
+        background: #1a1a1c;
+    }
 
-nav > div:hover {
-    cursor: pointer;
-    font-weight: 400;
-}
-
-nav > div::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--p-text-color);
-    transition: width 0.3s ease, left 0.3s ease;
-}
-
-nav > div:hover::after {
-    width: 80%;
-    left: 10%;
+    footer {
+        background-color: #27272a;
+        color: #898b93;
+    }
 }

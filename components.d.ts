@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Button: typeof import('primevue/button')['default']
     Home: typeof import('./src/components/Home.vue')['default']
     Projects: typeof import('./src/components/Projects.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

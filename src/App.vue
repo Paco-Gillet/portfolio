@@ -6,16 +6,25 @@ import router from "@/router";
 
 const darkMode = ref(false);
 function toggleDarkMode() {
-  document.documentElement.classList.toggle('dark');
-  darkMode.value = document.documentElement.classList.contains('dark');
-  localStorage.setItem('theme', darkMode.value ? 'dark' : 'light');
+  const updateTheme = () => {
+    document.documentElement.classList.toggle('dark-app', darkMode.value);
+    localStorage.setItem('theme', darkMode.value ? 'dark-app' : 'light');
+  };
+
+  if (!document.startViewTransition) {
+    // Fallback for old browsers
+    updateTheme();
+    return;
+  }
+
+  document.startViewTransition(updateTheme);
 }
 
 onMounted(() => {
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  if (savedTheme === 'dark-app' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     darkMode.value = true;
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.add('dark-app');
   }
 });
 
@@ -53,17 +62,18 @@ const items = computed(() => [
 
 <template>
   <header class="p-3 flex justify-between w-screen">
-    <div>
-      <img src="@/assets/logo.jpg" alt="Logo" class="h-20 w-20 rounded-3xl">
+    <div class="w-30">
+      <img src="@/assets/img/logo.png" alt="Logo" class="h-20 w-20 rounded-3xl shadow-xl/20">
     </div>
     <nav>
       <div class="h-fit mt-auto mb-auto" @click="router.push({name:'home'})">{{ $t('home') }}</div>
       <div class="h-fit mt-auto mb-auto" @click="router.push({name:'projects'})">{{ $t('projects') }}</div>
     </nav>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 justify-end w-30">
       <ToggleSwitch
           v-model="darkMode"
           @change="toggleDarkMode"
+          class="theme-toggler-switch"
       >
         <template #handle="{ checked }">
           <i v-if="checked" class="pi pi-moon text-xs" />
@@ -98,8 +108,57 @@ const items = computed(() => [
   <main>
     <RouterView />
   </main>
+
+  <footer class="fixed bottom-0 w-screen text-center p-2">
+    ® 2026 Paco
+  </footer>
 </template>
 
 <style scoped>
+/* Hide temporarily the theme toggle button to prevent cursed animation */
+.theme-toggler-switch {
+  view-transition-name: theme-toggler;
+}
+:global(::view-transition-old(theme-toggler)) {
+  display: none;
+}
+:global(::view-transition-new(theme-toggler)) {
+  animation: none;
+}
 
+nav {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+nav > div {
+  position: relative;
+  padding: 0 1em;
+  font-weight: 300;
+  transition: font-weight var(--my-default-transition-duration) ease;
+}
+
+nav > div:hover {
+  cursor: pointer;
+  font-weight: 400;
+}
+
+nav > div::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--p-text-color);
+  transition: width var(--my-default-transition-duration) ease, left var(--my-default-transition-duration) ease;
+}
+
+nav > div:hover::after {
+  width: 80%;
+  left: 10%;
+}
 </style>
