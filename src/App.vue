@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch, computed} from "vue";
+import {onMounted, ref, watch} from "vue";
 import { useI18n } from 'vue-i18n'
 import router from "@/router";
 
@@ -28,7 +28,7 @@ onMounted(() => {
   }
 });
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const languages = ref([
   { name: 'Français', code: 'fr', flagCode: 'fr' },
   { name: 'English', code: 'en', flagCode: 'gb' }
@@ -41,29 +41,18 @@ watch(selectedLanguage, (newLang) => {
     localStorage.setItem('user-locale', newLang.code);
   }
 });
-
-const items = computed(() => [
-  {
-    label: t('home'),
-    icon: 'pi pi-home'
-  },
-  {
-    label: t('projects'),
-    icon: 'pi pi-search',
-    items: [
-      {
-        label: 'TBC',
-        icon: 'pi pi-clock'
-      }
-    ]
-  }
-]);
 </script>
 
 <template>
-  <header class="p-3 flex justify-between w-screen">
+  <header class="p-3 flex justify-between w-full">
     <div class="w-30">
-      <img src="@/assets/img/logo.png" alt="Logo" class="h-20 w-20 rounded-3xl shadow-xl/20">
+      <img
+          id="logo"
+          src="@/assets/img/logo.png"
+          alt="Logo"
+          class="h-20 w-20 rounded-3xl shadow-xl/20 transition-transform duration-300 hover:scale-105 cursor-pointer"
+          @click="router.push({name:'home'})"
+      >
     </div>
     <nav>
       <div class="h-fit mt-auto mb-auto" @click="router.push({name:'home'})">{{ $t('home') }}</div>
@@ -105,11 +94,11 @@ const items = computed(() => [
     </div>
   </header>
 
-  <main>
+  <main class="min-h-[calc(100vh-120px)] pb-12">
     <RouterView />
   </main>
 
-  <footer class="fixed bottom-0 w-screen text-center p-2">
+  <footer class="bottom-0 w-full text-center p-2 z-10">
     ® 2026 Paco
   </footer>
 </template>

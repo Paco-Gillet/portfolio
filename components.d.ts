@@ -12,7 +12,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    ConsumerElectronicFair: typeof import('./src/components/ConsumerElectronicFair.vue')['default']
     Home: typeof import('./src/components/Home.vue')['default']
+    PacPackQuests: typeof import('./src/components/PacPackQuests.vue')['default']
+    ProjectCard: typeof import('./src/components/ProjectCard.vue')['default']
+    ProjectDetailLayout: typeof import('./src/components/ProjectDetailLayout.vue')['default']
     Projects: typeof import('./src/components/Projects.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
