@@ -5,7 +5,7 @@ import { useTranslate } from '@/utils/i18n'
 
 const { t } = useI18n()
 const { translate } = useTranslate()
-const resumeUrl = `${import.meta.env.BASE_URL}/my-resume.pdf`
+const resumeUrl = `${import.meta.env.BASE_URL}my-resume.pdf`
 </script>
 
 <template>
