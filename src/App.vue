@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import { useI18n } from 'vue-i18n'
 import router from "@/router";
 
@@ -55,8 +55,8 @@ watch(selectedLanguage, (newLang) => {
       >
     </div>
     <nav>
-      <div class="h-fit mt-auto mb-auto" @click="router.push({name:'home'})">{{ $t('home') }}</div>
-      <div class="h-fit mt-auto mb-auto" @click="router.push({name:'projects'})">{{ $t('projects') }}</div>
+      <div class="h-fit mt-auto mb-auto" :class="router.currentRoute.value.name == 'home' ? 'selected' : ''" @click="router.push({name:'home'})">{{ $t('home') }}</div>
+      <div class="h-fit mt-auto mb-auto" :class="router.currentRoute.value.path != null ? router.currentRoute.value.path.toString().indexOf('projects') >= 0 ? 'selected' : '' : ''" @click="router.push({name:'projects'})">{{ $t('projects') }}</div>
     </nav>
     <div class="flex items-center gap-2 justify-end w-30">
       <ToggleSwitch
@@ -94,7 +94,7 @@ watch(selectedLanguage, (newLang) => {
     </div>
   </header>
 
-  <main class="min-h-[calc(100vh-120px)] pb-12">
+  <main class="min-h-[calc(100vh-150px)] pb-12">
     <RouterView />
   </main>
 
@@ -147,6 +147,11 @@ nav > div::after {
 }
 
 nav > div:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+nav > div.selected::after {
   width: 80%;
   left: 10%;
 }
